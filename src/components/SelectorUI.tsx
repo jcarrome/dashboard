@@ -5,12 +5,15 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
 export default function SelectorUI() {
-  const [city, setCity] = useState('');
+  const [cityInput, setCityInput] = useState('');
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setCity(event.target.value);
-    alert(`Ciudad seleccionada: ${event.target.value}`);
+    setCityInput(event.target.value);
   };
+
+  // Función para capitalizar la primera letra
+  const capitalize = (str: string) =>
+    str.charAt(0).toUpperCase() + str.slice(1);
 
   return (
     <FormControl fullWidth>
@@ -18,7 +21,7 @@ export default function SelectorUI() {
       <Select
         labelId="city-select-label"
         id="city-simple-select"
-        value={city}
+        value={cityInput}
         label="Ciudad"
         onChange={handleChange}
       >
@@ -30,6 +33,12 @@ export default function SelectorUI() {
         <MenuItem value={"manta"}>Manta</MenuItem>
         <MenuItem value={"cuenca"}>Cuenca</MenuItem>
       </Select>
+      {cityInput && (
+        <p style={{ marginTop: 16 }}>
+          Información del clima en{' '}
+          <b>{capitalize(cityInput)}</b>
+        </p>
+      )}
     </FormControl>
   );
 }
